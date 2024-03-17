@@ -39,7 +39,9 @@ Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pe
     - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
 
 ## Data Understanding
-Dataset yang digunakan untuk pembuatan model system recommendation ini adalah dataset "MovieLens Latest" yang tersedia di situs [grouplens](https://grouplens.org/datasets/movielens/) yang berisi data-data mengenai film-film beserta rating yang diberikan oleh para pengguna. Terdapat banyak file didalamnya, tetapi yang digunakan hanya dataset `movie.csv` dan `rating.csv`. `movie.csv` terdiri dari 9078 baris data dan 3 kolom data. Kemudian, `rating.csv` terdiri dari 100836 baris data dan 4 kolom data.
+Dataset yang digunakan untuk pembuatan model system recommendation ini adalah dataset "MovieLens Latest" yang tersedia di situs [grouplens](https://grouplens.org/datasets/movielens/) yang berisi data-data mengenai film-film beserta rating yang diberikan oleh para pengguna. Dataset ini terakhir di-update pada September 2018
+
+Terdapat banyak file didalamnya, tetapi yang digunakan hanya dataset `movie.csv` dan `rating.csv`. `movie.csv` terdiri dari 9078 baris data dan 3 kolom data. Kemudian, `rating.csv` terdiri dari 100836 baris data dan 4 kolom data.
 
 Kedua dataset tersebut dapat digunakan untuk membuat system recommendation, baik `Content-Based Filtering` maupun `Collaborative Filtering`
 
@@ -354,7 +356,7 @@ Berikut ini adalah Data Preparation untuk `movie_df`:
 
   **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan overfitting. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
 
-  Berikut ini adalah kodenya:
+  Berikut ini proses pendeteksian dan penghapusan nilai duplikat:
   ```python
   duplicates_movie = movie_df.duplicated()
   duplicate_count = duplicates_movie.sum()
@@ -374,7 +376,7 @@ Berikut ini adalah Data Preparation untuk `movie_df`:
 
   **Alasan**: _Missing Value_ perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model _Machine Learning_ yang baik juga.
 
-  Berikut ini adalah kodenya:
+  Berikut ini adalah kode untuk mencari tahu kolom mana saja dan berapa jumlah missing value-nya:
   ```python
   movie_df.isnull().sum()
   ```
@@ -396,7 +398,7 @@ Berikut ini adalah Data Preparation untuk `movie_df`:
 
   **Alasan**: Hal ini perlu dilakukan karena nilai tersebut tidak mewakili genre apapun untuk sebuah film. Jika dibiarkan, ini dapat mempengaruhi performa model yang akan dibuat. Maka dari itu, baris data yang memiliki nilai ini, perlu dihapus
 
-  Berikut adalah kodenya:
+  Berikut adalah kodenya untuk menghapus beberapa baris data yang perlu dihapus:
   ```python
   movie_df.drop(movie_df[movie_df['genre'] == '(no genres listed)'].index, inplace=True)
   ```
@@ -428,9 +430,9 @@ Berikut ini adalah Data Preparation untuk `movie_df`:
   War
   ```
 
-  Berdasarkan outpur diatas, `(no genres listed)` terbukti sudah tidak ada lagi pada dataset
+  Berdasarkan output diatas, `(no genres listed)` terbukti sudah tidak ada lagi pada dataset
 
-  Adapun tahap selanjutnya, yaitu:
+  Adapun tahap selanjutnya, yaitu penghapusan baris data yang hanya ada kurang dari 6 data point:
 
   Berikut ini adalah kodenya:
   ```python
@@ -462,7 +464,7 @@ Berikut ini adalah Data Preparation untuk `movie_df`:
 
   **Alasan**: Hal ini perlu dilakukan karena jika dibiarkan ketika proses embedding akan terdeteksi sebagai 2 bagian yang berbeda. Maka dari itu, string dari kedua nilai tersebut harus dimodifikasi agar pada saat proses encoding tidak terpecah menjadi 2 bagian berbeda.
   
-  Berikut ini adalah kodenya
+  Berikut ini adalah proses pengubahan beberapa nilai tertentu:
   ```python
   movie_df['genre'] = movie_df['genre'].replace({'Sci-Fi': 'SciFi', 'Film-Noir': 'FilmNoir'})
   ```
@@ -519,17 +521,146 @@ Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
 - 3 kolom data
 
 
-
-  
-
 Berikut ini adalah Data Preparation untuk `review_df`:
 
-- Detection and Removal Duplicates
-- Handle Missing Value
-- Outliers Detection and Removal
-- Dropping Uneeded Column
-- Encoding
-- Train Test Split
+- **Detection and Removal Duplicates**
+  
+  Data duplikat adalah baris data yang sama persis untuk setiap variabel yang ada. Dataset yang digunakan perlu diperiksa juga apakah dataset memiliki data yang sama atau data duplikat. Jika ada, maka data tersebut harus ditangani dengan menghapus data duplikat tersebut.
+
+  **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan _overfitting_. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
+
+  Berikut ini adalah proses pendeteksian dan penghapusan data duplikatnya:
+
+  ```python
+  duplicates_review = review_df.duplicated()
+  duplicate_review = duplicates_movie.sum()
+  print(f"Number of duplicate rows: {duplicate_review}")
+  ```
+
+  Output-nya:
+  ```python
+  Number of duplicate rows: 0
+  ```
+
+  Berdasarkan hasil tersebut, tidak ditemukan adanya data duplikat, maka tidak ada juga proses penghapusannya.
+  
+  
+- **Handle Missing Value**
+
+  _Missing Value_ terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
+
+  **Alasan**: _Missing Value_ perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model _Machine Learning_ yang baik juga.
+
+  Berikut ini adalah kode untuk mencari tahu kolom mana saja dan berapa jumlah missing value-nya:
+
+  ```python
+  review_df.isnull().sum()
+  ```
+  Output-nya :
+
+  ```python
+  userId       0
+  movieId      0
+  review       0
+  timestamp    0
+  ```
+
+  Berdasarkan output diatas, tidak adanya missing value pada `review_df`. Maka, tidak perlu dilakukan pengisian pada data hilang.
+  
+
+- **Outliers Detection and Removal**
+
+  _Outliers_ adalah titik data yang secara signifikan berbeda dari sebagian besar data dalam kumpulan data. Outliers dapat muncul karena variasi dalam pengukuran atau mungkin menunjukkan kesalahan eksperimental; dalam beberapa kasus, outliers bisa juga menunjukkan variabilitas yang sebenarnya dalam data. Penting untuk menganalisis outliers karena mereka dapat memiliki pengaruh besar pada hasil analisis statistik.
+  
+  Outliers adalah titik data yang secara signifikan berbeda dari sebagian besar data dalam kumpulan data. Outliers dapat muncul karena variasi dalam pengukuran atau mungkin menunjukkan kesalahan eksperimental; dalam beberapa kasus, outliers bisa juga menunjukkan variabilitas yang sebenarnya dalam data. Penting untuk menganalisis outliers karena mereka dapat memiliki pengaruh besar pada hasil analisis statistik.
+  
+  Proses pembersihan outliers menggunakan metode IQR (Interquartile Range) melibatkan beberapa langkah:
+  
+    - Menghitung Kuartil: Tentukan kuartil pertama (Q1) dan kuartil ketiga (Q3) dari data. Kuartil ini membagi data menjadi empat bagian yang sama.
+    
+    - Menghitung IQR: Hitung IQR dengan mengurangi Q1 dari Q3:
+      $$IQR=Q3−Q1$$
+    
+    - Menentukan Batas Outliers:
+    
+      - Batas bawah untuk outliers:
+        $$Q1−1.5×IQR$$
+    
+      - Batas atas untuk outliers:
+        $$Q3+1.5×IQR$$
+    
+    - Identifikasi Outliers: Data yang berada di luar batas bawah dan atas ini dianggap sebagai outliers.
+  
+  Pembersihan Outliers yang teridentifikasi kemudian dapat dibersihkan dari dataset, baik dengan menghapusnya atau melakukan transformasi tertentu.
+      
+  **Alasan**:_Outliers_ perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus _outlier_ dapat membantu meningkatkan performa model _Machine Learning_ menjadi lebih baik.
+
+  Berikut ini adalah salah satu cara mendeteksi adanya outliers atau tidak:
+
+  ```python
+  review_df['review'].describe()
+  ```
+
+  Output-nya:
+  ```python
+  count    100836.000000
+  mean          3.501557
+  std           1.042529
+  min           0.500000
+  25%           3.000000
+  50%           3.500000
+  75%           4.000000
+  max           5.000000
+  ```
+
+  Sebelum memulai dengan proses interquartile. Perlu dilihat terlebih dahulu secara sekilas secara statistika deskriptif.
+
+  Hanya kolom `review` yang dicek karena hanya kolom tersebut yang tergolong sebagai kolom numeric dan perlu dilakukan pemeriksaan outliers-nya.
+  
+  Berdasarkan output diatas, terlihbat bahwa nilai terkecil dari `review` adalah `0.5` dan terbesarnya adalah `5.0`. Kedua nilai tersebut masih di ambang wajar untuk sebuah review film. Jadi, tidak ada outliers dan tidak ada penghapus outliers untuk kolom `review`
+  
+- **Dropping Uneeded Column**
+
+  Pada bagian ini adalah proses penghapusan kolom yang tidak digunakan untuk proses pembuatan model. Langkah ini diambil berdasarkan asumsi bahwa kolom yang akan dihapus tidak memberikan kontribusi terhadap prediksi yang dibuat oleh model.
+
+  **Alasan**: Tahapan ini perlu dilakukan karena kolom yang tidak digunakan cenderung tidak memberikan informasi yang berguna untuk prediksi dan dapat menambah informasi yang tidak perlu ke dalam model. Dengan menghilangkan fitur-fitur ini, kita dapat mengurangi kompleksitas model dan mempercepat waktu pelatihan.
+
+  Berikut ini adalah proses penghapusan kolom yang tidak diperlukan atau digunakan:
+
+  ```python
+  review_df.drop('timestamp', axis=1, inplace=True)
+  ```
+
+  Kolom `timestamp` telah berhasil dihapus. Kolom tersebut dihapus karena tidak diperlukan untuk proses pembuatan sistem rekomendasi secara collaborative filtering.
+
+  Berikut dilakukan pengecekan ukuran dari `review_df`:
+
+  ```python
+  review_df.shape
+  ```
+
+  Output-nya:
+  ```python
+  (100836, 3)
+  ```
+
+  Berdasarkan output tersebut, maka `review_df` masih memiliki:
+    - 100836 baris data
+    - 3 kolom data
+  
+- **Encoding**
+
+  Encoding adalah proses konversi informasi dari satu bentuk atau format ke bentuk lain, yang sering kali dilakukan untuk memastikan kompatibilitas dan pemrosesan yang tepat oleh berbagai sistem komputer. Proses ini sangat penting dalam dunia digital, di mana berbagai jenis data, seperti teks, gambar, dan suara, harus diubah menjadi format yang dapat dipahami oleh perangkat keras dan perangkat lunak.
+
+
+  **Alasan:** Tahap ini perlu dilakukan karena Encoding memungkinkan data dari berbagai sumber dan format untuk diubah menjadi format standar yang dapat dipahami dan memastikan bahwa informasi dapat diproses
+
+
+- **Train Test Split**
+
+  Train Test Split adalah metode yang digunakan untuk membagi dataset menjadi dua bagian: satu untuk melatih model (_training set_) dan satu lagi untuk menguji model (_testing set_). Biasanya, data dibagi dengan proporsi tertentu, misalnya 80% untuk training dan 20% untuk testing.
+
+  **Alasan**: Proses ini dilakukan agar dapat mengevaluasi kinerja model secara objektif. Dengan memisahkan data uji, kita dapat mengukur seberapa baik model memprediksi data baru yang tidak pernah dilihat sebelumnya, yang merupakan indikator penting dari kemampuan generalisasi model.
 
 ## Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
