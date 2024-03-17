@@ -162,8 +162,15 @@ Berikut ini adalah EDA yang dilakukan untuk `movie_df`:
   War
   (no genres listed)
   ```
+  Proses perubahan nilai pada kolom `genre` sudah berhasil dilakukan.
+
+
+- ```python
+  movie_df.rename(columns={'genres': 'genre'}, inplace=True)
+  ```
+  Nama kolom `genres` berhasil diganti menjadi `genre` karena genre dari tiap film sudah tidak ada yang lebih dari 1. Proses ini dilakukan lebih awal untuk memudahkan proses selanjutnya
   
-  Proses perubahan nilai pada kolom `genre` sudah berhasil dilakukan. Namun, Masih ada beberapa tindakan yang perlu dilakukan untuk membersihkan `movie_df`. Proses pembersihan dan persiapan dataset akan dikerjakan lebih lanjut pada tahap selanjutnya.
+Masih ada beberapa tindakan yang perlu dilakukan untuk `movie_df`. Proses pembersihan dan persiapan dataset akan dikerjakan lebih lanjut pada tahap selanjutnya.
 
 Berikut ini adalah EDA yang dilakukan untuk `review_df`:
 
@@ -274,7 +281,27 @@ Berikut ini adalah EDA yang dilakukan untuk `review_df`:
 **Visualisasi Data**
 
 Visualisasi Data untuk `movie_df`:
+- Univariate Analysis
+  Univariate Analysis adalah jenis analisis data yang memeriksa satu variabel (atau bidang data) pada satu waktu. Tujuannya adalah untuk menggambarkan data dan menemukan pola yang ada dalam distribusi variabel tersebut. Ini termasuk penggunaan statistik deskriptif, histogram, dan box plots untuk menganalisis distribusi dan memahami sifat dari variabel tersebut.
+
+  - Count Plot dari setiap Genre
+    
+    ![Count Plot - Genre](https://github.com/ensiklopedical/system-recommendation/assets/115972304/0508b4f2-4368-423a-801d-01001c134690)
+    <div align="center">Gambar 1a - Count Plot Genre</div>
+
+
+  - Pie Chart dari Genre
+    
+    ![Pie Chart - Genre](https://github.com/ensiklopedical/system-recommendation/assets/115972304/ca14e639-b30b-48da-9906-b2622d949123)
+    
+    Gambar 1b - Pie Chart Genre
+
+  Berdasarkan kedua visualisasi data diatas, terlihat bahwa genre `Comedy`, `Drama`, dan `Action` memiliki proporsi dan jumlah terbesar secara keseluruhan dibandingkan genre lainnya pada `movie_df
+  
 Visualisasi Data untuk `rating_df`:
+
+  - sd
+  - sd
 
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
