@@ -520,9 +520,11 @@ Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
 - 9708 baris data
 - 3 kolom data
 
+<br>
 
 Berikut ini adalah Data Preparation untuk `review_df` :
 
+<br>
 
 - **Detection and Removal Duplicates**
   
