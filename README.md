@@ -521,7 +521,8 @@ Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
 - 3 kolom data
 
 
-Berikut ini adalah Data Preparation untuk `review_df`:
+Berikut ini adalah Data Preparation untuk `review_df` :
+
 
 - **Detection and Removal Duplicates**
   
@@ -538,6 +539,7 @@ Berikut ini adalah Data Preparation untuk `review_df`:
   ```
 
   Output-nya:
+  
   ```python
   Number of duplicate rows: 0
   ```
@@ -556,6 +558,7 @@ Berikut ini adalah Data Preparation untuk `review_df`:
   ```python
   review_df.isnull().sum()
   ```
+  
   Output-nya :
 
   ```python
@@ -602,6 +605,7 @@ Berikut ini adalah Data Preparation untuk `review_df`:
   ```
 
   Output-nya:
+  
   ```python
   count    100836.000000
   mean          3.501557
@@ -640,6 +644,7 @@ Berikut ini adalah Data Preparation untuk `review_df`:
   ```
 
   Output-nya:
+  
   ```python
   (100836, 3)
   ```
