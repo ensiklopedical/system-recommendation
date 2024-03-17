@@ -282,6 +282,7 @@ Berikut ini adalah EDA yang dilakukan untuk `review_df`:
 
 Visualisasi Data untuk `movie_df`:
 - Univariate Analysis
+  
   Univariate Analysis adalah jenis analisis data yang memeriksa satu variabel (atau bidang data) pada satu waktu. Tujuannya adalah untuk menggambarkan data dan menemukan pola yang ada dalam distribusi variabel tersebut. Ini termasuk penggunaan statistik deskriptif, histogram, dan box plots untuk menganalisis distribusi dan memahami sifat dari variabel tersebut.
 
   - Count Plot dari setiap Genre
@@ -299,7 +300,10 @@ Visualisasi Data untuk `movie_df`:
 
   Berdasarkan kedua visualisasi data diatas, terlihat bahwa genre `Comedy`, `Drama`, dan `Action` memiliki proporsi dan jumlah terbesar secara keseluruhan dibandingkan genre lainnya pada `movie_df
   
-Visualisasi Data untuk `rating_df`:
+Visualisasi Data untuk `review_df`:
+- Univariate Analysis
+  
+  Univariate Analysis adalah jenis analisis data yang memeriksa satu variabel (atau bidang data) pada satu waktu. Tujuannya adalah untuk menggambarkan data dan menemukan pola yang ada dalam distribusi variabel tersebut. Ini termasuk penggunaan statistik deskriptif, histogram, dan box plots untuk menganalisis distribusi dan memahami sifat dari variabel tersebut.
 
   - Count Plot dari Setiap Nilai Review
     
@@ -319,25 +323,213 @@ Visualisasi Data untuk `rating_df`:
     
     ![10 Movie Most Review](https://github.com/ensiklopedical/system-recommendation/assets/115972304/7bd680ac-84ae-4999-be99-6289faed4478)
 
-    
+    Gambar 1e - Top 10 Most Review Movie  
 
-    
-    
+    Berdasarkan visualisasi data diatas, berikut adalah daftar `movieId` dengan review terbanyak pada dataset `review_df`.
 
-    
-
-    
-
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
-
+    ```python
+    top_10_movies_array = top_10_movies.index.to_numpy()
+    print(top_10_movies_array)
+    ```
+    Berikut adalah hasilnya:
+    ```python
+    [ 356  318  296  593 2571  260  480  110  589  527 ]
+    ```
+    10 film dengan `movieId` diatas memiliki review terbanyak pada dataset.
+ 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan proses data preparation yang dilakukan
 - Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+
+======================================================================================================================
+
+Berikut ini adalah Data Preparation untuk `movie_df`:
+
+- **Detection and Removal Duplicates**
+
+  Data duplikat adalah baris data yang sama persis untuk setiap variabel yang ada. Dataset yang digunakan perlu diperiksa juga apakah dataset memiliki data yang sama atau data duplikat. Jika ada, maka data tersebut harus ditangani dengan menghapus data duplikat tersebut.
+
+  **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan overfitting. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
+
+  Berikut ini adalah kodenya:
+  ```python
+  duplicates_movie = movie_df.duplicated()
+  duplicate_count = duplicates_movie.sum()
+  print(f"Number of duplicate rows: {duplicate_count}")
+  ```
+  Berikut adalah output-nya:
+
+  ```python
+  Number of duplicate rows: 0
+  ```
+
+  Berdasarkan hasil tersebut, tidak ditemukan adanya data duplikat, maka tidak ada juga proses penghapusannya.
+  
+- **Handle Missing Value**
+  
+  _Missing Value_ terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
+
+  **Alasan**: _Missing Value_ perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model _Machine Learning_ yang baik juga.
+
+  Berikut ini adalah kodenya:
+  ```python
+  movie_df.isnull().sum()
+  ```
+  Berikut adalah output-nya:
+
+  ```python
+  movieId    0
+  title      0
+  genre      0
+  dtype: int64
+  ```
+
+  Berdasarkan output diatas, tidak adanya missing value pada `movie_df`
+  
+  
+- **Delete Some Data Point**
+
+  Pada sebuah dataset, ada saatnya beberapa baris data atau kolom perlu dihapus karena satu dan lain hal. Salah satunya agar tidak menghambat proses training dan performa dari sebuah model yang akan dibangun. Ada value pada dataset `movie_df`, khususnya kolom `genre`, yang perlu dihapus karena nama nilainya itu sendiri, yaitu `(no genres listed)'.
+
+  **Alasan**: Hal ini perlu dilakukan karena nilai tersebut tidak mewakili genre apapun untuk sebuah film. Jika dibiarkan, ini dapat mempengaruhi performa model yang akan dibuat. Maka dari itu, baris data yang memiliki nilai ini, perlu dihapus
+
+  Berikut adalah kodenya:
+  ```python
+  movie_df.drop(movie_df[movie_df['genre'] == '(no genres listed)'].index, inplace=True)
+  ```
+  ```python
+  unique_genres = movie_df['genre'].unique()
+  for genre in unique_genres:
+      print(genre)
+  ```
+  Berikut adalah output-nya:
+
+  ```python
+  Adventure
+  Comedy
+  Action
+  Drama
+  Crime
+  Children
+  Mystery
+  Animation
+  Documentary
+  Thriller
+  Horror
+  Fantasy
+  Western
+  Film-Noir
+  Romance
+  Sci-Fi
+  Musical
+  War
+  ```
+
+  Berdasarkan outpur diatas, `(no genres listed)` terbukti sudah tidak ada lagi pada dataset
+
+  Adapun tahap selanjutnya, yaitu:
+
+  Berikut ini adalah kodenya:
+  ```python
+  value_counts = movie_df['genre'].value_counts()
+  less_than_six = value_counts[value_counts < 6]
+  print("Values with less than 6 data points:")
+  print(less_than_six)
+  ```
+  Berikut adalah output-nya:
+
+  ```python
+  Values with less than 6 data points:
+  War    4
+  Name: genre, dtype: int64
+  ```
+
+  Berdasarkan output diatas, `War` pada kolom `genre` hanya memiliki 4 data point. Dalam kasus ini, value yang kurang dari 6 data dalam dataset perlu dihilangkana karena tidak dapat digunakan. Hal ini akan ditindak lebih lanjut pada bagian selanjutnya.
+
+  Berikut ini adalah kodenya:
+  ```python
+  movie_df = movie_df[~movie_df['genre'].str.contains('War')]
+  ```
+  Berhasil dilakukannya penghapusan data point pada kolon `genre` yang bernilai `War`
+  
+
+- **Changing Certain Value**
+  
+  Pada sebuah dataset, ada kalanya beberapa nilai perlu diproses terlebih dahulu agar proses training atau pembuatan model dapat berjalan seperti seharusnya. Salah satunya adalah pengubahan beberapa nilai yang dirasa akan mengganggu jika dibiarkan. Ada value pada dataset `movie_df`, khususnya kolom `genre`, yang perlu diganti namanya, yaitu `Sci-Fi` dan `Film-Noir`.
+
+  **Alasan**: Hal ini perlu dilakukan karena jika dibiarkan ketika proses embedding akan terdeteksi sebagai 2 bagian yang berbeda. Maka dari itu, string dari kedua nilai tersebut harus dimodifikasi agar pada saat proses encoding tidak terpecah menjadi 2 bagian berbeda.
+  
+  Berikut ini adalah kodenya
+  ```python
+  movie_df['genre'] = movie_df['genre'].replace({'Sci-Fi': 'SciFi', 'Film-Noir': 'FilmNoir'})
+  ```
+
+  Nilai `Sci-Fi` dan `Film-Noir` sudah berhasil diubah dengan menghilangkan tanda `-` pada kedua nilai tersebut. Maka dari itu, nilai tersebut sudah siap untuk diproses pada tahap selanjutnya.
+  
+  Berikut adalah kode untuk mengecek proses perubahan:
+
+  ```python
+  unique_genres = movie_df['genre'].unique()
+  for genre in unique_genres:
+      print(genre)
+  ```
+
+  Berikut ini adalah output-nya:
+
+  ```python
+  Adventure
+  Comedy
+  Action
+  Drama
+  Crime
+  Children
+  Mystery
+  Animation
+  Documentary
+  Thriller
+  Horror
+  Fantasy
+  Western
+  FilmNoir
+  Romance
+  SciFi
+  Musical
+  War
+  ```
+
+  Berdasarkan output diatas, dapat dilihat bahwa sudah terlihat nilai yang baru saja diubah, yaitu `SciFi` dan `FilmNoir`
+
+Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
+
+```python
+movie_df.shape
+```
+
+Outputnya:
+
+```python
+(9708, 3)
+```
+
+Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
+- 9708 baris data
+- 3 kolom data
+
+
+
+  
+
+Berikut ini adalah Data Preparation untuk `review_df`:
+
+- Detection and Removal Duplicates
+- Handle Missing Value
+- Outliers Detection and Removal
+- Dropping Uneeded Column
+- Encoding
+- Train Test Split
 
 ## Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
