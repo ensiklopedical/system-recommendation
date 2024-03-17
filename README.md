@@ -662,6 +662,80 @@ Berikut ini adalah Data Preparation untuk `review_df` :
 
   **Alasan:** Tahap ini perlu dilakukan karena Encoding memungkinkan data dari berbagai sumber dan format untuk diubah menjadi format standar yang dapat dipahami dan memastikan bahwa informasi dapat diproses
 
+  Berikut ini adalah proses dari encoding yang dilakukan:
+
+  Encoding `userId`
+  ```python
+  user_id = review_df['userId'].unique().tolist() # Mengubah userId menjadi list tanpa nilai yang sama
+  user_to_user = {x: i for i, x in enumerate(user_id)} # Melakukan encoding userId
+  user_encode_to_user = {i: x for i, x in enumerate(user_id)} # Melakukan proses encoding angka ke ke userId
+  
+  print('list userId :  ', user_id)
+  print('encoded userId :  ', user_to_user)
+  print('encoded angka ke userId :  ', user_encode_to_user)
+  ```
+  Encoding `userId` berhasil dilakukan. Output tersedia di notebook dan tidak dapat ditampilkan disini karena terlalu panjang.
+  
+  Encoding `movieId`
+  ```python
+  movie_id = review_df['movieId'].unique().tolist() # Mengubah movieId menjadi list tanpa nilai yang sama
+  movie_to_movie = {x: i for i, x in enumerate(movie_id)} # Melakukan proses encoding movieId
+  movie_encode_to_movie = {i: x for i, x in enumerate(movie_id)} # Melakukan proses encoding angka ke movieId
+  
+  print('list movieId :  ', movie_id)
+  print('encoded movieId :  ', movie_to_movie)
+  print('encoded angka ke movieId :  ', movie_encode_to_movie)
+  ```
+  Encoding `movieId` berhasil dilakukan. Output tersedia di notebook dan tidak dapat ditampilkan disini karena terlalu panjang.
+
+  Mapping hasil encoding `userId` dan `movieId`:
+  ```python
+  review_df['user'] = review_df['userId'].map(user_to_user) # Mapping userId ke dataframe user
+  review_df['movie'] = review_df['movieId'].map(movie_to_movie) # Mapping movieId ke dataframe resto
+  ```
+
+  Hasil encoding tadi, di-mapping ke dalam dataframe `review_df` dengan menempati kolom baru untuk masing-masing hasil.
+
+  Berikut dilakukan pengecekan pada `review_df`:
+
+  ```python
+  review_df.head(5)
+  ```
+
+  Proses mapping berhasil dilakukan karena sudah terdapat dua kolom baru, yaitu `user` dan `movie`
+
+  Berikut adalah pengecekan kembali pada `movie_df` dari beberapa aspek lainnya:
+
+  ```python
+  num_users = len(user_to_user) # Mendapatkan jumlah user
+  num_movie = len(movie_to_movie) # Mendapatkan jumlah review
+  min_review = min(review_df['review']) # Nilai minimum review
+  max_review = max(review_df['review']) # Nilai maksimal review
+  
+  print('total user: {}'.format(num_users))
+  print('total review: {}'.format(num_movie))
+  print('MIN review: {}'.format(min_review))
+  print('MAX review: {}'.format(max_review))
+  ```
+
+  Outputnya:
+
+  ```python
+  total user: 610
+  total review: 9724
+  MIN review: 0.5
+  MAX review: 5.0
+  ```
+
+  Berdasarkan output diatas, dapat dilihat bahwa pada `review_df` terdapat:
+    - total user: 610
+    - total review: 9724
+    - MIN review: 0.5
+    - MAX review: 5.0
+
+ 
+  Proses encoding telah berhasil dilakukan
+
 
 - **Train Test Split**
 
