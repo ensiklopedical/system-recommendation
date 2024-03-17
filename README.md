@@ -287,7 +287,8 @@ Visualisasi Data untuk `movie_df`:
   - Count Plot dari setiap Genre
     
     ![Count Plot - Genre](https://github.com/ensiklopedical/system-recommendation/assets/115972304/0508b4f2-4368-423a-801d-01001c134690)
-    <div align="center">Gambar 1a - Count Plot Genre</div>
+    
+    Gambar 1a - Count Plot Genre
 
 
   - Pie Chart dari Genre
@@ -300,8 +301,32 @@ Visualisasi Data untuk `movie_df`:
   
 Visualisasi Data untuk `rating_df`:
 
-  - sd
-  - sd
+  - Count Plot dari Setiap Nilai Review
+    
+    ![Count Plot - Review](https://github.com/ensiklopedical/system-recommendation/assets/115972304/79298cba-dc6c-47ac-8391-7a19da4b168e)
+
+    Gambar 1c - Count Plot Review
+
+  - Pie Chart dari Review
+
+    ![Pie Chart - Review](https://github.com/ensiklopedical/system-recommendation/assets/115972304/99d12b2d-fd45-418d-8c4d-adf1187772de)
+
+    Gambar 1d - Pie Chart Genre
+
+  Berdasarkan visualisasi data diatas, terlihat bahwa review dengan skor `4.0` dan `3.0` memiliki proporsi dan jumlah terbesar secara keseluruhan dibandingkan skor lainnya pada `review_df`.
+    
+  - Top 10 Movie dengan Review Terbanyak
+    
+    ![10 Movie Most Review](https://github.com/ensiklopedical/system-recommendation/assets/115972304/7bd680ac-84ae-4999-be99-6289faed4478)
+
+    
+
+    
+    
+
+    
+
+    
 
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
