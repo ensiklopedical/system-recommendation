@@ -69,9 +69,7 @@ Dataset `movie.csv` ditampung dalam variabel `movie_df`
 
 Dataset `rating.csv` ditampung dalam variabel `review_df`
 
-```python
 
-```
 
 **_Exploratory Data Analysis_**
 
