@@ -1066,10 +1066,15 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
       )
       ```
   
-      Berikut ini hasil proses training yang sudah selesai pada epochs ke- :
-  
+      Berikut ini hasil proses training yang sudah selesai pada epochs ke-15 yang memiliki :
+      - `loss` : 0.5912
+      - `root_mean_squared_error` : 0.1817
+      - `val_loss` : 0.6025
+      - `val_root_mean_squared_error` : 0.1948
+        
       ```python
-  
+      Epoch 15/100
+      11344/11344 [==============================] - 48s 4ms/step - loss: 0.5912 - root_mean_squared_error: 0.1817 - val_loss: 0.6025 - val_root_mean_squared_error: 0.1948
       ```
       
   - Result
@@ -1196,6 +1201,8 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       Dalam Konteks sistem rekomendasi menjadi:
 
       ![Precision](https://github.com/ensiklopedical/system-recommendation/assets/115972304/efd048df-2997-4808-addc-da64f4d34469)
+
+      Gambar 2a - Formula Precision
       
 
     - **Cara Kerja**
@@ -1237,10 +1244,26 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       Output-nya:
 
       ```python
-
+      Precision: 1.0, Genre: Action
+      Precision: 1.0, Genre: Adventure
+      Precision: 1.0, Genre: Animation
+      Precision: 1.0, Genre: Children
+      Precision: 1.0, Genre: Comedy
+      Precision: 1.0, Genre: Crime
+      Precision: 1.0, Genre: Documentary
+      Precision: 1.0, Genre: Drama
+      Precision: 1.0, Genre: Fantasy
+      Precision: 1.0, Genre: FilmNoir
+      Precision: 1.0, Genre: Horror
+      Precision: 1.0, Genre: Musical
+      Precision: 1.0, Genre: Mystery
+      Precision: 1.0, Genre: Romance
+      Precision: 1.0, Genre: SciFi
+      Precision: 1.0, Genre: Thriller
+      Precision: 1.0, Genre: Western
       ```
 
-      Berdasarkan hasil diatas, model memiliki skor presisi sebesar `1.0` atau `100%` untuk memberikan rekomendasi berdasarkan `genre`.
+      Berdasarkan hasil diatas, model memiliki skor presisi sebesar `1.0` atau `100%` untuk semua `genre` dalam memberikan rekomendasi berdasarkan `genre`.
 
       **Model memiliki performa yang sangat baik dalam memberikan rekomendasi secara Content-Based Filtering.**
 
@@ -1263,16 +1286,19 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
   - Hasil `Root Mean Squared Error` dari model `Collaborative Learning`
  
     - Plot History `Root Mean Squared Error`
+      ![His_plot](https://github.com/ensiklopedical/system-recommendation/assets/115972304/88dfe791-4a93-4095-9abd-dc0fc61aaf53)
+ 
+      Gambar 2b - History Plot
+      
+      
 
-      gambar
+      Berdasarkan plot tersebut, proses training model berhenti pada epoch ke 15 (epochs 1 dimulai dari nomor 0 pada plot) karena `callbacks` yang berisi `early stopper`. `early stopper` menghentikan proses training karena model tidak menunjukkan penurunan yang lebih keci dari `val_root_mean_squared_error` pada epochs ke-15 selama 5 epochs berturut-turut.
 
-      Berdasarkan plot tersebut, proses training model berhenti pada epoch ke 13 (epochs 1 dimulai dari nomor 0 pada plot) karena `callbacks` yang berisi `early stopper`. `early stopper` menghentikan proses training karena model tidak menunjukkan penurunan pada `root_mean_squared_error` selama [] epochs.
-
-      Kemudian, model pada epochs ke [] yang dipertahankan karena pada epochs tersebut model memiliki performa yang terbaik. Berikut adalah hasil dari metriks pada epocs tersebut:
-      - `loss` : ``
-      - `root_mean_squared_error` : ``
-      - `val_loss` : ``
-      - `val_root_mean_squared_error`
+      Kemudian, model pada epochs ke 15 yang dipertahankan karena pada epochs tersebut model memiliki performa yang terbaik. Berikut adalah hasil dari metriks pada epocs tersebut:
+      - `loss` : 0.5912
+      - `root_mean_squared_error` : 0.1817
+      - `val_loss` : 0.6025
+      - `val_root_mean_squared_error` : 0.1948
 
       
 
