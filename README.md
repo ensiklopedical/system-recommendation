@@ -340,13 +340,8 @@ Visualisasi Data untuk `review_df`:
     10 film dengan `movieId` diatas memiliki review terbanyak pada dataset.
  
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
-
-======================================================================================================================
+Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian data mentah ke dalam format yang dapat dipahami oleh algoritma machine learning. Bagian ini menjelaskan urutan langkah-langkah Data Preparation yang dilakukan beserta penjelasan dan alasannya untuk setiap dataset.
 
 Berikut ini adalah Data Preparation untuk `movie_df`:
 
@@ -782,13 +777,8 @@ Berikut ini adalah Data Preparation untuk `review_df` :
     
 
 ## Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
-
-Model yang dibuat terdiri dari dua model, yaitu `Content-Based Filtering` dan `Collaborative Filtering`. `Content-Based Filtering` menggunakan dataset `movie_df` dan `Collaborative Filtering` menggunakan dataset `review_df`. Kedua model atau algoritma tersebut memiliki pendekatan yang berbeda-beda. Berikut ini adalah penjelasan berserta kelebihan dan kekurangan dari keduanya:
+Model yang dibuat terdiri dari dua model dengan algoritma dan pendekatan yang berbeda, yaitu `Content-Based Filtering` dan `Collaborative Filtering`. `Content-Based Filtering` menggunakan dataset `movie_df` dan `Collaborative Filtering` menggunakan dataset `review_df`. Kedua model atau algoritma tersebut memiliki pendekatan yang berbeda-beda. Berikut ini adalah penjelasan berserta kelebihan dan kekurangan dari keduanya:
 
 - **Content-Based Filtering**
   
