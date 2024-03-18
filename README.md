@@ -791,6 +791,7 @@ Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk meny
 Model yang dibuat terdiri dari dua model, yaitu `Content-Based Filtering` dan `Collaborative Filtering`. `Content-Based Filtering` menggunakan dataset `movie_df` dan `Collaborative Filtering` menggunakan dataset `review_df`. Kedua model atau algoritma tersebut memiliki pendekatan yang berbeda-beda. Berikut ini adalah penjelasan berserta kelebihan dan kekurangan dari keduanya:
 
 - **Content-Based Filtering**
+  
   Content-Based Filtering adalah metode yang digunakan dalam sistem rekomendasi untuk memberikan saran kepada pengguna berdasarkan item-item yang telah mereka sukai atau pilih sebelumnya. Metode ini berfokus pada karakteristik atau konten dari item yang ingin direkomendasikan.
 
   **Kelebihan Content-Based Filtering:**
@@ -806,6 +807,7 @@ Model yang dibuat terdiri dari dua model, yaitu `Content-Based Filtering` dan `C
   Pendekatan ini menggunakan atribut-atribut atau fitur-fitur item untuk menentukan kesamaan antara item yang ada. Dalam konteks proyek ini, content-based filtering akan memberikan rekomendasi film berdasarkan `genre` dari film yang ada dari dataset `movie_df`. Model akan memberikan rekomendasi film-film yang memiliki genre yang sama berdasarkan genre dari judul film yang digunakan sebagai input.
 
 - **Collaborative Filtering**
+  
   Collaborative Filtering adalah teknik yang digunakan dalam sistem rekomendasi untuk memberikan saran kepada pengguna berdasarkan preferensi atau perilaku pengguna lain yang memiliki kesamaan. Teknik ini mengumpulkan dan menganalisis sejumlah besar informasi tentang perilaku pengguna, aktivitas, atau preferensi dan memprediksi apa yang pengguna akan suka berdasarkan kesamaan dengan pengguna lain.
 
   **Kelebihan Collaborative Filtering:**
