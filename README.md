@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-Pada bagian ini, Kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Platform streaming film telah menjadi bagian integral dari hiburan saat ini. Dengan akses internet yang semakin luas, platform-platform tersebut memberikan kemudahan bagi penggunanya dalam menikmati berbagai film dari seluruh dunia. Adanya platform streaming memungkinkan penonton untuk memilih konten yang ingin ditonton kapan saja dan di mana saja[[1](https://www.emerald.com/insight/content/doi/10.1108/INTR-11-2021-0861/full/html)]. Hal ini memberikan fleksibilitas yang tidak dapat ditawarkan oleh bioskop atau televisi tradisional.  Namun, untuk meningkatkan pengalaman pengguna dalam menggunakan layanan tersebut juga perlu diperhatikan. Jika dibiarkan, penonton bisa saja tidak ingin lagi menggunakan layanan platform streaming tersebut atau memberhentikan langganannya. Maka dari itu, salah satu solusi dari masalah ini adalah pembuatan sistem rekomendasi.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa proyek ini penting untuk diselesaikan.
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-  
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
+Salah satu contoh nyata efektivitas sistem rekomendasi adalah keberhasilan Netflix dalam mempertahankan dan meningkatkan basis pelanggannya. Dengan menggunakan sistem rekomendasi yang canggih, Netflix dapat menganalisis preferensi pemirsa dan perilaku menonton untuk memberikan saran film dan acara TV yang relevan[[2](https://www.ssdjournal.org/DergiDetay.aspx?ID=931&Detay=Ozet)]. Hasilnya, sekitar 75% tontonan di Netflix berasal dari rekomendasi sistem. Hal ini menunjukkan betapa pentingnya sistem rekomendasi dalam membantu pengguna menemukan konten yang mereka sukai, yang pada akhirnya meningkatkan kepuasan dan loyalitas pengguna terhadap platform
+
+Sistem rekomendasi telah terbukti menjadi salah satu bagian utama yang meningkatkan pengalaman pengguna di platform streaming[[3](https://dl.acm.org/doi/10.1145/3565472.3592960)]. Sistem menggunakan algoritma untuk menganalisis preferensi pengguna dan memberikan saran film yang relevan[[4](https://www.nature.com/articles/s41598-023-34192-x)]. Sistem rekomendasi memberikan dampak yang signifikan bagi pengguna atau penonton karena membantu pengguna menemukan film yang sesuai dengan seleranya tanpa harus mencari terlebih dahulu, sehingga meningkatkan kepuasan pengguna dan potensi waktu menonton.
+
+Ada beberapa pendekatan yang dapat digunakan dalam membuat model sistem rekomendasi film. Pendekatan berbasis konten memanfaatkan fitur-fitur seperti genre untuk merekomendasikan film serupa [[5](https://www.irjmets.com/uploadedfiles/paper//issue_6_june_2023/42626/final/fin_irjmets1687806612.pdf)]. Sementara itu, pendekatan pemfilteran kolaboratif mengumpulkan dan menganalisis data dari banyak pengguna untuk menemukan pola dan preferensi bersama[[6](https://ieeexplore.ieee.org/document/10142424)]. Perkembangan model ini terus berkembang seiring dengan kemajuan teknologi dan analisis data.
 
 ## Business Understanding
 
@@ -1186,8 +1186,18 @@ Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, probl
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
 
-**---Ini adalah bagian akhir laporan---**
+## Referensi
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+[1] Q. Yang, J. Huo, H. Li, Y. Xi, and Y. Liu, “Can social interaction-oriented content trigger viewers’ purchasing and gift-giving behaviors? Evidence from live-streaming commerce,” Internet Research, Mar. 2023, doi: https://doi.org/10.1108/intr-11-2021-0861.
+
+[2] Şeyma BOZKURT UZAN and Kutluk ATALAY, “DEVELOPING NEW SUGGESTIONS FOR THE CONTENTS OF A DIGITAL PLATFORM USING RECOMMENDATION SYSTEMS ALGORITHMS,” Social science development journal, vol. 8, no. 38, pp. 187–202, Jul. 2023, doi: https://doi.org/10.31567/ssd.931.
+
+[3] Karlijn Dinnissen and C. Bauer, “Amplifying Artists’ Voices: Item Provider Perspectives on Influence and Fairness of Music Streaming Platforms,” Jun. 2023, doi: https://doi.org/10.1145/3565472.3592960.
+
+[4] P. Khambatta, S. Mariadassou, J. Morris, and S. C. Wheeler, “Tailoring recommendation algorithms to ideal preferences makes users better off,” Scientific Reports, vol. 13, p. 9325, Jun. 2023, doi: https://doi.org/10.1038/s41598-023-34192-x.
+
+[5] “Movie Recommendation Systems Using Content-Based Filtering,” International Research Journal of Modernization in Engineering Technology and Science, Jun. 2023, doi: https://doi.org/10.56726/irjmets42626.
+‌
+[6] S. Katkam, A. Atikam, P. Mahesh, M. Chatre, S. S. Kumar, and S. G. R, “Content-based Movie Recommendation System and Sentimental analysis using ML,” IEEE Xplore, May 01, 2023. https://ieeexplore.ieee.org/document/10142424
+‌
+
