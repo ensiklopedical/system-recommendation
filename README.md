@@ -828,33 +828,326 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
 
 - _Modelling and Result_ **Content-Based Filtering**
 
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
- 
+  - Modelling
+
+    - Inisiasi `TfidVectorizer`
+   
+      ```python
+      tf_id = TfidfVectorizer()
+      tf_id.fit(movie_df['genre'])
+      tf_id.get_feature_names_out()
+      ```
+      
+      Output-nya:
+
+      ```python
+      array(['action', 'adventure', 'animation', 'children', 'comedy', 'crime',
+       'documentary', 'drama', 'fantasy', 'filmnoir', 'horror', 'musical',
+       'mystery', 'romance', 'scifi', 'thriller', 'war', 'western'],
+      dtype=object)
+      ```
+
+      Output diatas adalah array yang berisi nilai-nilai yang ada pada kolom `genre`
+      
+  
+    - `fit_tranform` dan pengecekan ukuran
+   
+      ```python
+      tfidf_matrix = tf_id.fit_transform(movie_df['genre'])
+      tfidf_matrix.shape 
+      ```
+
+      Outputnya:
+      
+      ```python
+      (9708, 18)
+      ```
+
+      Berdasarkan output diatas, dapat dilihat bahwa ukuran matriksnya sebesar 9708 x 18
+      
+    - `to_dense()`
+   
+      ```python
+      tfidf_matrix.todense()
+      ```
+   
+      Outputnya:
+      
+      ```python
+      matrix([[0., 1., 0., ..., 0., 0., 0.],
+              [0., 1., 0., ..., 0., 0., 0.],
+              [0., 0., 0., ..., 0., 0., 0.],
+              ...,
+              [0., 0., 0., ..., 0., 0., 0.],
+              [1., 0., 0., ..., 0., 0., 0.],
+              [0., 0., 0., ..., 0., 0., 0.]])
+      ```
+      
+      Berdasarkan output diatas, proses operasi menggunakan `todense()` sudah berhasil dilakukan
+      
+    - Pembuatan dataframe dari matrix tf-idf
+   
+      ```python
+      # Membuat dataframe untuk melihat tf-idf matrix
+      pd.DataFrame(
+          tfidf_matrix.todense(),
+          columns=tf_id.get_feature_names_out(),
+          index=movie_df.title
+      ).sample(18, axis=1).sample(7, axis=0)
+
+      ```
+      Dataframe berhasil dibuat dengan data dari matriks yang sudah dibuat sebelumnya
+  
+    - `cosine_similarity()`
+   
+      ```python
+      # Proses perhitungan cosine_similarity
+      cosine_sim = cosine_similarity(tfidf_matrix)
+      cosine_sim
+      ```
+   
+      Outputnya:
+      
+      ```python
+      array([[1., 1., 0., ..., 0., 0., 0.],
+             [1., 1., 0., ..., 0., 0., 0.],
+             [0., 0., 1., ..., 0., 0., 1.],
+             ...,
+             [0., 0., 0., ..., 1., 0., 0.],
+             [0., 0., 0., ..., 0., 1., 0.],
+             [0., 0., 1., ..., 0., 0., 1.]])
+      ```
+      Berdasarkan output diatas, proses perhitungan `cosine_similarity` telah berhasil dilakukan.
+      
+    - Pembuatan dataframe dari `cosine_sim`
+   
+      ```python
+      cosine_sim_df = pd.DataFrame(cosine_sim, index=movie_df['title'], columns=movie_df['title'])
+      print('Ukuran Dataframe : ', cosine_sim_df.shape)
+      ```
+   
+      Outputnya:
+      
+      ```python
+      Ukuran Dataframe :  (9708, 9708)
+      ```
+      Berdasarkan output diatas, proses pembuatan dataframe berhasil dilakukan dan dataframe memiliki ukuran 9708 x 9708.
+      
+    - Similarity matrix pada data
+   
+      ```python
+      cosine_sim_df.sample(5, axis=1).sample(7, axis=0)
+      ```
+      
+    - Pembuatan function `movie_recommendations()`
+   
+      ```python
+      def movie_recommendations(title, similarity_data=cosine_sim_df, items=movie_df[['title', 'genre']], k=5):
+      index = similarity_data.loc[:,title].to_numpy().argpartition(range(-1, -k, -1))
+      closest_data = similarity_data.columns[index[-1:-(k+2):-1]]
+      closest_data = closest_data.drop(title, errors='ignore')
+  
+      return pd.DataFrame(closest_data).merge(items).head(k)
+      ```
+   
+      Function utama yang digunakan untuk pembuatan model Content Based telah berhasil dibuat
+  
+    
+  - Result
+  - 
   
 - _Modelling and Result_ **Collaborative Filtering**
 
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
-  - .
- 
+  - Modelling 
+
+    - Pembuatan `class` `RecommenderNet`
   
+      ```python
+      class RecommenderNet(Model):
+    
+      def __init__(self, num_users, num_movie, embedding_size, **kwargs):
+        super(RecommenderNet, self).__init__(**kwargs)
+        self.num_users = num_users
+        self.num_movie = num_movie
+        self.embedding_size = embedding_size
+    
+        self.user_embedding = layers.Embedding(
+            num_users,
+            embedding_size,
+            embeddings_initializer = 'he_normal',
+            embeddings_regularizer = keras.regularizers.l2(1e-6)
+        )
+        self.user_bias = layers.Embedding(num_users, 1) 
+    
+        self.movie_embedding = layers.Embedding(
+            num_movie,
+            embedding_size,
+            embeddings_initializer = 'he_normal',
+            embeddings_regularizer = keras.regularizers.l2(1e-6)
+        )
+    
+        self.movie_bias = layers.Embedding(num_movie, 1) 
+    
+      def call(self, inputs):
+        user_vector = self.user_embedding(inputs[:,0]) 
+        user_bias = self.user_bias(inputs[:, 0]) 
+        movie_vector = self.movie_embedding(inputs[:, 1]) 
+        movie_bias = self.movie_bias(inputs[:, 1]) 
+    
+        dot_user_movie = tensorflow.tensordot(user_vector, movie_vector, 2)
+    
+        x = dot_user_movie + user_bias + movie_bias
+    
+        return tensorflow.nn.sigmoid(x) 
+      ```
+  
+      `class` `RecommenderNet` yang digunakan untuk pembuatan model Collaborative Filtering telah berhasil dibuat.
+  
+    - Inisiasi Model
+   
+      ```python
+      model = RecommenderNet(num_users, num_movie, 50) # inisialisasi model
+      model.compile(
+          loss = keras.losses.BinaryCrossentropy(),
+          optimizer = keras.optimizers.Adam(learning_rate=0.001),
+          metrics=[keras.metrics.RootMeanSquaredError()]
+      )
+      ```
+  
+      Inisiasi model terlah berhasil dilakukan
+   
+    - Early Stopper
+   
+      ```python
+      early_stopper = EarlyStopping(monitor='val_root_mean_squared_error',
+                                patience=5,
+                                verbose=1,
+                                restore_best_weights=True)
+      ```
+    
+      Inisiasi Callback Early Stopper yang akan memantau proses training model. Model akan berhenti jika `val_root_mean_squared_error` tidak mengalami penurunan lagi selama 5 epochs. Setelah berhenti, model pada epoch tertentu yang memiliki performa terbaik akan dipertahankan
+   
+      
+    - Training
+   
+      ```python
+      history = model.fit(
+            x = x_train,
+            y = y_train,
+            batch_size = 8,
+            epochs = 100,
+            callbacks = [early_stopper],
+            validation_data = (x_val, y_val)
+      )
+      ```
+  
+      Berikut ini hasil proses training yang sudah selesai pada epochs ke- :
+  
+      ```python
+  
+      ```
+      
+  - Result
+
+    ```python
+    user_id = review_df.userId.sample(1).iloc[0]
+    movie_reviewed_by_user = review_df[review_df.userId == user_id]
+    movie_not_reviewed = review_df[~review_df['movieId'].isin(movie_reviewed_by_user.movieId.values)]['movieId']
+    movie_not_reviewed = list(
+        set(movie_not_reviewed)
+        .intersection(set(movie_to_movie.keys()))
+    )
+    movie_not_reviewed = [[movie_to_movie.get(x)] for x in movie_not_reviewed]
+    user_encoder = user_to_user.get(user_id)
+    user_movie_array = np.hstack(
+        ([[user_encoder]] * len(movie_not_reviewed), movie_not_reviewed)
+    )
+    ```
+    
+    ```python
+    reviews = model.predict(user_movie_array).flatten()
+
+    top_reviews_indices = reviews.argsort()[-10:][::-1]
+    recommended_movie_ids = [
+        movie_encode_to_movie.get(movie_not_reviewed[x][0]) for x in top_reviews_indices
+    ]
+    
+    print('List recommendations movie untuk users : {}'.format(user_id))
+    print('====' * 9)
+    print('Movie dengan skor review tinggi dari user ')
+    print('=====' * 8)
+    
+    top_movie_user = (
+        movie_reviewed_by_user.sort_values(
+            by = 'review',
+            ascending=False
+        )
+        .head(5)
+        .movieId.values
+    )
+    
+    movie_df_rows = movie_df[movie_df['movieId'].isin(top_movie_user)]
+    for row in movie_df_rows.itertuples():
+        print(row.title, ':', row.genre)
+    
+    print('====' * 8)
+    print('Top 10 movie recommendation')
+    print('====' * 8)
+    
+    recommended_movie = movie_df[movie_df['movieId'].isin(recommended_movie_ids)]
+    for row in recommended_movie.itertuples():
+        print(row.title, ':', row.genre)
+    ```
+
+    Berikut ini adalah output-nya:
+
+    ```python
+    List recommendations movie untuk users : 567
+    ====================================
+    Movie dengan skor review tinggi dari user 
+    ========================================
+    Eraserhead (1977) : Drama
+    Come and See (Idi i smotri) (1985) : Drama
+    Jetée, La (1962) : Romance
+    There Will Be Blood (2007) : Drama
+    It's Such a Beautiful Day (2012) : Animation
+    ================================
+    Top 10 movie recommendation
+    ================================
+    Shawshank Redemption, The (1994) : Crime
+    Rear Window (1954) : Mystery
+    North by Northwest (1959) : Action
+    Casablanca (1942) : Drama
+    Sunset Blvd. (a.k.a. Sunset Boulevard) (1950) : Drama
+    Citizen Kane (1941) : Drama
+    Rebecca (1940) : Drama
+    Notorious (1946) : FilmNoir
+    To Catch a Thief (1955) : Crime
+    Lawrence of Arabia (1962) : Adventure
+    ```
+
+  Hasil diatas adalah hasil dari `Top-N Recommendation` menggunakan Collaborative Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan review dari user tertentu dan memberikan rekomendasi film lainnya yang cocok untuk user tersebut.
+
+  Pada contoh diatas, model berhasil memberikan rekomendasi film untuk user nomor `567` yang pernah memberikan skor review tinggi ke film dan genre:
+  - `Eraserhead (1977) : Drama`
+  - `Come and See (Idi i smotri) (1985) : Drama`
+  - `Jetée, La (1962) : Romance`
+  - `There Will Be Blood (2007) : Drama`
+  - `It's Such a Beautiful Day (2012) : Animation`
+  
+  Model memberikan 10 rekomendasi berupa film dengan genre:
+  - `Shawshank Redemption, The (1994) : Crime`
+  - `Rear Window (1954) : Mystery`
+  - `North by Northwest (1959) : Action`
+  - `Casablanca (1942) : Drama`
+  - `Sunset Blvd. (a.k.a. Sunset Boulevard) (1950) : Drama`
+  - `Citizen Kane (1941) : Drama`
+  - `Rebecca (1940) : Drama`
+  - `Notorious (1946) : FilmNoir`
+  - `To Catch a Thief (1955) : Crime`
+  - `Lawrence of Arabia (1962) : Adventure`
+
+  **Model telah dapat berfungsi dengan cukup baik**. 
 
 ## Evaluation
 Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
