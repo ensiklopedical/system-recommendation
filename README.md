@@ -954,7 +954,46 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
   
     
   - Result
-  - 
+ 
+    Untuk contoh atau simulasi penggunaan model, kita gunakan `Train to Busan (2016)` yang ber-genre `Action`
+    
+    ```python
+    movie_df[movie_df.title.eq('Train to Busan (2016)')]
+    ```
+ 
+    Outputnya:
+ 
+    ```python
+    | movieId | title                  | genre  |
+    |---------|------------------------|--------|
+    | 9364    | Train to Busan (2016)  | Action |    
+    ```
+ 
+    Kemudian, memanggil `movie_recommendations` untuk mendapatkan `Top-N Recommendations`
+ 
+    ```python
+    recommendations_result = movie_recommendations('Train to Busan (2016)')
+    recommendations_result
+    ```
+
+    Outputnya;
+ 
+    ```python
+    |   | title                                      | genre  |
+    |---|--------------------------------------------|--------|
+    | 0 | Django Unchained (2012)                    | Action |
+    | 1 | Collision Course (1989)                    | Action |
+    | 2 | Family, The (2013)                         | Action |
+    | 3 | Highlander: Endgame (Highlander IV) (2000) | Action |
+    | 4 | Saint, The (1997)                          | Action |
+    ```
+
+  Berikut ini adalah hasil dari `Top-N Recommendation` menggunakan Content-Based Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan input yang diberikan.
+
+  Pada contoh diatas, model berhasil memberikan rekomendasi film yang juga ber-genre `Action` berdasarkan input yang diberikan, yaitu `Train to Busan (2016)` yang juga bergenre `Action`
+
+**Model telah dapat berfungsi dengan baik**.
+    
   
 - _Modelling and Result_ **Collaborative Filtering**
 
