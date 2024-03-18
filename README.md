@@ -12,31 +12,26 @@ Ada beberapa pendekatan yang dapat digunakan dalam membuat model sistem rekomend
 
 ## Business Understanding
 
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Pengguna dari platform streaming film dapat berhenti menggunakan sebuah layanan streaming film jika pengalaman yang didapatkannya tidak begitu baik. Salah satu untuk meningkatkan pengalaman pengguna paltform streaming film adalah dengan adanya sistem rekomendasi agar penonton bisa mendapatkan konten yang sesuai dengan preferensinya atau riwayat tontonannya. Ada beberapa pendekatan yang dapat digunakan untuk membangun model sistem rekomendasi. Salah satunya adalah sistem rekomendasi dengan content-based learning yang memberikan rekomendasi berdasarkan item serupa. Kemudian, sistem rekomendasi dengan collaborative filtering yang bekerja dengan cara mengumpulkan dan menganalisis data dari banyak pengguna untuk menemukan pola dan preferensi secara kolektif. Dengan adanya sistem rekomendasi pada platfom streaming film, pengguna dapat mendapatkan pengalaman pengguna yang baik.
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- .
+- .
+- .
 
 ### Goals
 
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- .
+- .
+- .
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution Approach
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
+- .
+- .
+- .
 
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
 
 ## Data Understanding
 Dataset yang digunakan untuk pembuatan model system recommendation ini adalah dataset "MovieLens Latest" yang tersedia di situs [grouplens](https://grouplens.org/datasets/movielens/) yang berisi data-data mengenai film-film beserta rating yang diberikan oleh para pengguna. Dataset ini terakhir di-update pada September 2018
