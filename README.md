@@ -1209,7 +1209,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
 
       Formula tersebut mengukur presisi dalam konteks sistem rekomendasi. Presisi dihitung dengan membagi jumlah rekomendasi yang relevan dengan jumlah total item yang direkomendasikan. Jadi, jika sebuah sistem merekomendasikan 10 film dan hanya 6 yang relevan atau disukai oleh pengguna, maka presisi sistem tersebut adalah 0.6 atau 60%. Ini menunjukkan seberapa akurat sistem dalam memberikan rekomendasi yang sesuai dengan kebutuhan atau selera pengguna.
       
-  - Hasil `Precision` dari model `Content-Based Learning`
+  - Penjelasan Hasil `Precision` dari model `Content-Based Learning`
     - Fungsi dari `calculate_precision` digunakan untuk perhitungan Presisi berdasarkan formula Presisi
  
       ```python
@@ -1283,7 +1283,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       
       RMSE menghitung akar kuadrat dari rata-rata perbedaan kuadrat antara nilai yang diprediksi oleh model dan nilai sebenarnya. Proses kerjanya melibatkan beberapa langkah. Pertama, untuk setiap titik data, kita menghitung selisih antara prediksi model dan nilai aktual. Selisih ini kemudian dikuadratkan untuk menghilangkan nilai negatif dan memberikan bobot lebih pada kesalahan yang lebih besar. Setelah itu, kita menghitung rata-rata dari nilai-nilai kuadrat tersebut. Terakhir, kita mengambil akar kuadrat dari rata-rata ini untuk mendapatkan RMSE.
     
-  - Hasil `Root Mean Squared Error` dari model `Collaborative Learning`
+  - Penjelasan Hasil `Root Mean Squared Error` dari model `Collaborative Learning`
  
     - Plot History `Root Mean Squared Error`
       ![His_plot](https://github.com/ensiklopedical/system-recommendation/assets/115972304/88dfe791-4a93-4095-9abd-dc0fc61aaf53)
