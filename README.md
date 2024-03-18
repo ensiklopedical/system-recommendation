@@ -743,12 +743,116 @@ Berikut ini adalah Data Preparation untuk `review_df` :
 
   **Alasan**: Proses ini dilakukan agar dapat mengevaluasi kinerja model secara objektif. Dengan memisahkan data uji, kita dapat mengukur seberapa baik model memprediksi data baru yang tidak pernah dilihat sebelumnya, yang merupakan indikator penting dari kemampuan generalisasi model.
 
+  Berikut ini adalah proses Train Test  Split yang dilakukan:
+
+  - Dilakukan pengacakan pada dataset agar teracak merata
+    
+    ```python
+    review_df = review_df.sample(frac=1, random_state=18)
+    ```
+    
+  - Pemisahan bagian atribur dan label ke dua variabel
+
+    ```python
+    x_df = review_df[['user', 'movie']].values # Membuat variabel x_df untuk mencocokkan data user dan movie menjadi satu value
+    y_df = review_df['review'].apply(lambda x: (x - min_review) / (max_review - min_review)).values # Membuat variabel y_df untuk membuat review dari hasil
+    ```
+
+    Pemisahan `review_df` menjadi dua bagian ke `x_df` dan `y_df` untuk proses Train Test Split berhasil dilakukan
+    
+  - Split
+ 
+    ```python
+    train_indices = int(0.9 * review_df.shape[0])
+    x_train, x_val, y_train, y_val = (
+        x_df[:train_indices],
+        x_df[train_indices:],
+        y_df[:train_indices],
+        y_df[train_indices:]
+    )
+    ```
+    Proses Train Test Split telah dilakukan ke empat variabel berbebeda dengan komposisi 0.9 untuk train dan 0.1 untuk val. Berikut adalah keempatnya:
+    - x_train
+    - x_val
+    - y_train
+    - y_val
+    
+ 
+  Proses Train Test Split berhasil dilakukan. 
+    
+
 ## Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
 - Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+
+Model yang dibuat terdiri dari dua model, yaitu `Content-Based Filtering` dan `Collaborative Filtering`. `Content-Based Filtering` menggunakan dataset `movie_df` dan `Collaborative Filtering` menggunakan dataset `review_df`. Kedua model atau algoritma tersebut memiliki pendekatan yang berbeda-beda. Berikut ini adalah penjelasan berserta kelebihan dan kekurangan dari keduanya:
+
+- **Content-Based Filtering**
+  Content-Based Filtering adalah metode yang digunakan dalam sistem rekomendasi untuk memberikan saran kepada pengguna berdasarkan item-item yang telah mereka sukai atau pilih sebelumnya. Metode ini berfokus pada karakteristik atau konten dari item yang ingin direkomendasikan.
+
+  **Kelebihan Content-Based Filtering:**
+  
+  - **Personalisasi**: Dapat memberikan rekomendasi yang sangat personal karena didasarkan pada preferensi sebelumnya dari pengguna itu sendiri.
+  - **Transparansi**: Mudah untuk menjelaskan mengapa suatu item direkomendasikan, karena rekomendasi didasarkan pada fitur-fitur item yang telah disukai pengguna.
+
+  **Kekurangan Content-Based Filtering:**
+  
+  - **Keterbatasan Diversifikasi**: Cenderung merekomendasikan item yang mirip dengan yang sudah diketahui pengguna, sehingga kurang memberikan kejutan atau item baru yang berbeda.
+  - **Ketergantungan pada Konten:** Memerlukan data yang cukup tentang konten item untuk bekerja dengan baik, dan kualitas rekomendasi sangat bergantung pada kualitas deskripsi item tersebut.
+
+  Pendekatan ini menggunakan atribut-atribut atau fitur-fitur item untuk menentukan kesamaan antara item yang ada. Dalam konteks proyek ini, content-based filtering akan memberikan rekomendasi film berdasarkan `genre` dari film yang ada dari dataset `movie_df`. Model akan memberikan rekomendasi film-film yang memiliki genre yang sama berdasarkan genre dari judul film yang digunakan sebagai input.
+
+- **Collaborative Filtering**
+  Collaborative Filtering adalah teknik yang digunakan dalam sistem rekomendasi untuk memberikan saran kepada pengguna berdasarkan preferensi atau perilaku pengguna lain yang memiliki kesamaan. Teknik ini mengumpulkan dan menganalisis sejumlah besar informasi tentang perilaku pengguna, aktivitas, atau preferensi dan memprediksi apa yang pengguna akan suka berdasarkan kesamaan dengan pengguna lain.
+
+  **Kelebihan Collaborative Filtering:**
+  
+  - **Diversifikasi Rekomendasi**: Dapat memberikan rekomendasi yang beragam karena didasarkan pada preferensi dari banyak pengguna.
+  - **Tidak Bergantung pada Konten**: Tidak memerlukan pengetahuan tentang konten item, sehingga dapat bekerja dengan item yang memiliki sedikit atau tanpa data konten sama sekali.
+
+
+  **Kekurangan Collaborative Filtering:**
+
+  - **Masalah Cold Start**: Sulit untuk memberikan rekomendasi kepada pengguna baru atau untuk item baru yang belum memiliki data interaksi.
+  - **Scalability**: Dapat menjadi tantangan ketika jumlah pengguna dan item sangat besar karena membutuhkan komputasi yang intensif.
+  - **Collaborative** Filtering bekerja dengan baik ketika ada cukup data dari pengguna, tetapi bisa menjadi kurang efektif jika data tersebut jarang atau tidak lengkap. Oleh karena itu, sering kali digunakan dalam kombinasi dengan teknik lain untuk meningkatkan kinerja sistem rekomendasi.
+
+  Pendekatan ini menggunakan atribut-atribut atau fitur-fitur yang ada pada dataset `review_df` untuk memberikan rekomendasi kepada seorang user. Sistem Rekomendasi yang dibuat memberikan rekomendasi berdasarkan skor `review` yang diberikan dari sebuah film dan `genre` yang dilakukan oleh seorang user. Lebih tepatnya, 5 film dengan skow `review` tertinggi dan setiap film tersebut memiliki genrenya masing-masing. Kemudian, model akan memberikan 10 rekomendasi film untuk user tersebut berdasarkan riwayat review user tersebut.
+
+Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
+
+- _Modelling and Result_ **Content-Based Filtering**
+
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+ 
+  
+- _Modelling and Result_ **Collaborative Filtering**
+
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+  - .
+ 
+  
 
 ## Evaluation
 Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
