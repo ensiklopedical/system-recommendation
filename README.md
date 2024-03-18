@@ -1286,6 +1286,8 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
   - Penjelasan Hasil `Root Mean Squared Error` dari model `Collaborative Learning`
  
     - Plot History `Root Mean Squared Error`
+
+    
       ![His_plot](https://github.com/ensiklopedical/system-recommendation/assets/115972304/88dfe791-4a93-4095-9abd-dc0fc61aaf53)
  
       Gambar 2b - History Plot
