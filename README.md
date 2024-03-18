@@ -974,7 +974,7 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
     | 4 | Saint, The (1997)                          | Action |
     
 
-    Berikut ini adalah hasil dari `Top-N Recommendation` menggunakan Content-Based Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan input yang diberikan.
+    Berikut ini adalah hasil dari `Top-N Recommendation` menggunakan Content-Based Filtering. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan input yang diberikan.
 
     Pada contoh diatas, model berhasil memberikan rekomendasi film yang juga ber-genre `Action` berdasarkan input yang diberikan, yaitu `Train to Busan (2016)` yang juga bergenre `Action`
 
