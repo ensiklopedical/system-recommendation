@@ -518,7 +518,6 @@ Setelah beberapa proses yang sudah dilakukan, maka `movie_df` masih memiliki:
 
 Berikut ini adalah Data Preparation untuk `review_df` :
 
-<br>
 
 - **Detection and Removal Duplicates**
   
