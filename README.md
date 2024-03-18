@@ -1299,6 +1299,8 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       - `root_mean_squared_error` : 0.1817
       - `val_loss` : 0.6025
       - `val_root_mean_squared_error` : 0.1948
+     
+      **Model dapat memberikan rekomendasi secara Collaborative Filtering dengan cukup baik.**
 
       
 
