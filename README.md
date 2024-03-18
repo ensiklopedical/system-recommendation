@@ -1210,7 +1210,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       Formula tersebut mengukur presisi dalam konteks sistem rekomendasi. Presisi dihitung dengan membagi jumlah rekomendasi yang relevan dengan jumlah total item yang direkomendasikan. Jadi, jika sebuah sistem merekomendasikan 10 film dan hanya 6 yang relevan atau disukai oleh pengguna, maka presisi sistem tersebut adalah 0.6 atau 60%. Ini menunjukkan seberapa akurat sistem dalam memberikan rekomendasi yang sesuai dengan kebutuhan atau selera pengguna.
       
   - Hasil `Precision` dari model `Content-Based Learning`
-    - Fungsi dari `calculate_precision` digunakan untuk perhitungan hasil
+    - Fungsi dari `calculate_precision` digunakan untuk perhitungan Presisi berdasarkan formula Presisi
  
       ```python
       # Calculate precision based on title and genre
@@ -1225,7 +1225,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
  
       Function utama yang digunakan untuk menghitung skor `Precision` dari model Content-Based Filtering telah berhasil dibuat.
       
-    - Perhitungan Presisi dan Hasilnya untuk setiap genre
+    - Hasilnya perhitungan untuk setiap genre
    
       ```python
       precision_results = []
