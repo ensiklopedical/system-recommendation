@@ -1177,12 +1177,55 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
   **Model telah dapat berfungsi dengan cukup baik**. 
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
+Untuk mengukur bagaimana performa dari model yang telah dibuat, diperlukannya metriks evaluasi untuk mengevaluasi model sistem rekomendasi film. Berikut adalah rincian metrik yang digunakan untuk tiap pendekatan:
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+- `Content-Based Filtering` : `Precision`
+- `Collaborative Filtering` : `Root Mean Squared Error`
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan metrik dari model yang telah dibuat :
+
+[JANGAN LUPA KODENYA]
+
+- `Content-Based Filtering` : `Precision`
+  - `Precision`
+  
+    Presisi merupakan ukuran yang menilai efektivitas model klasifikasi dalam mengidentifikasi label positif. Ukuran ini merupakan perbandingan antara jumlah prediksi yang benar-benar positif dengan keseluruhan hasil yang diprediksi sebagai positif, termasuk yang sebenarnya negatif.
+
+    Berikut adalah formula dan cara kerja dari `Precision` :
+    
+    - Formula
+
+      $$Precision = TP/(TP+FP)$$
+
+      Dalam Konteks sistem rekomendasi menjadi:
+
+      ![Precision](https://github.com/ensiklopedical/system-recommendation/assets/115972304/efd048df-2997-4808-addc-da64f4d34469)
+      
+
+    - Cara Kerja
+
+      Formula tersebut mengukur presisi dalam konteks sistem rekomendasi. Presisi dihitung dengan membagi jumlah rekomendasi yang relevan dengan jumlah total item yang direkomendasikan. Jadi, jika sebuah sistem merekomendasikan 10 film dan hanya 6 yang relevan atau disukai oleh pengguna, maka presisi sistem tersebut adalah 0.6 atau 60%. Ini menunjukkan seberapa akurat sistem dalam memberikan rekomendasi yang sesuai dengan kebutuhan atau selera pengguna.
+      
+  - Hasil `Precision` dari model `Content-Based Learning`
+
+    
+- `Colaborative Filtering` : `Root Mean Squared Error`
+  - `Root Mean Squared Error`
+  - 
+    Root Mean Square Error (RMSE) adalah metrik yang sering digunakan dalam machine learning untuk mengukur seberapa baik sebuah model prediktif dapat memperkirakan nilai yang sebenarnya. RMSE merupakan akar kuadrat dari rata-rata perbedaan kuadrat antara nilai yang diprediksi oleh model dan nilai yang sebenarnya (nilai aktual).
+
+    Berikut ini adalah formula dan cara kerja dari `Root Mean Squared Error` :
+
+    - Formula
+   
+      $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+   
+    - Cara Kerja
+    - 
+      RMSE menghitung akar kuadrat dari rata-rata perbedaan kuadrat antara nilai yang diprediksi oleh model dan nilai sebenarnya. Proses kerjanya melibatkan beberapa langkah. Pertama, untuk setiap titik data, kita menghitung selisih antara prediksi model dan nilai aktual. Selisih ini kemudian dikuadratkan untuk menghilangkan nilai negatif dan memberikan bobot lebih pada kesalahan yang lebih besar. Setelah itu, kita menghitung rata-rata dari nilai-nilai kuadrat tersebut. Terakhir, kita mengambil akar kuadrat dari rata-rata ini untuk mendapatkan RMSE.
+    
+  - hasil nya
+
 
 ## Referensi
 
@@ -1197,5 +1240,3 @@ Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, probl
 [5] “Movie Recommendation Systems Using Content-Based Filtering,” International Research Journal of Modernization in Engineering Technology and Science, Jun. 2023, doi: https://doi.org/10.56726/irjmets42626.
 ‌
 [6] S. Katkam, A. Atikam, P. Mahesh, M. Chatre, S. S. Kumar, and S. G. R, “Content-based Movie Recommendation System and Sentimental analysis using ML,” IEEE Xplore, May 01, 2023. https://ieeexplore.ieee.org/document/10142424
-‌
-
