@@ -963,11 +963,11 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
  
     Outputnya:
  
-    ```python
+    
     | movieId | title                  | genre  |
     |---------|------------------------|--------|
     | 9364    | Train to Busan (2016)  | Action |    
-    ```
+    
  
     Kemudian, memanggil `movie_recommendations` untuk mendapatkan `Top-N Recommendations`
  
@@ -978,7 +978,7 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
 
     Outputnya;
  
-    ```python
+    
     |   | title                                      | genre  |
     |---|--------------------------------------------|--------|
     | 0 | Django Unchained (2012)                    | Action |
@@ -986,11 +986,11 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
     | 2 | Family, The (2013)                         | Action |
     | 3 | Highlander: Endgame (Highlander IV) (2000) | Action |
     | 4 | Saint, The (1997)                          | Action |
-    ```
+    
 
-  Berikut ini adalah hasil dari `Top-N Recommendation` menggunakan Content-Based Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan input yang diberikan.
+    Berikut ini adalah hasil dari `Top-N Recommendation` menggunakan Content-Based Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan input yang diberikan.
 
-  Pada contoh diatas, model berhasil memberikan rekomendasi film yang juga ber-genre `Action` berdasarkan input yang diberikan, yaitu `Train to Busan (2016)` yang juga bergenre `Action`
+    Pada contoh diatas, model berhasil memberikan rekomendasi film yang juga ber-genre `Action` berdasarkan input yang diberikan, yaitu `Train to Busan (2016)` yang juga bergenre `Action`
 
 **Model telah dapat berfungsi dengan baik**.
     
@@ -1165,9 +1165,9 @@ Berikut ini adalah proses _Modelling and Result_ dari kedua algoritma tersebut:
     Lawrence of Arabia (1962) : Adventure
     ```
 
-  Hasil diatas adalah hasil dari `Top-N Recommendation` menggunakan Collaborative Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan review dari user tertentu dan memberikan rekomendasi film lainnya yang cocok untuk user tersebut.
+    Hasil diatas adalah hasil dari `Top-N Recommendation` menggunakan Collaborative Filterting. Proses penggunaan model berhasil dilakukan dan model dapat memberikan hasil rekomendasi berdasarkan review dari user tertentu dan memberikan rekomendasi film lainnya yang cocok untuk user tersebut.
 
-  Pada contoh diatas, model berhasil memberikan rekomendasi film untuk user nomor `567` yang pernah memberikan skor review tinggi ke film dan genre:
+    Pada contoh diatas, model berhasil memberikan rekomendasi film untuk user nomor `567` yang pernah memberikan skor review tinggi ke film dan genre:
   - `Eraserhead (1977) : Drama`
   - `Come and See (Idi i smotri) (1985) : Drama`
   - `Jetée, La (1962) : Romance`
