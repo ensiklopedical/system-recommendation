@@ -1184,8 +1184,6 @@ Untuk mengukur bagaimana performa dari model yang telah dibuat, diperlukannya me
 
 Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan metrik dari model yang telah dibuat :
 
-[JANGAN LUPA KODENYA]
-
 - `Content-Based Filtering` : `Precision`
   - `Precision`
   
@@ -1193,7 +1191,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
 
     Berikut adalah formula dan cara kerja dari `Precision` :
     
-    - Formula
+    - **Formula**
 
       $$Precision = TP/(TP+FP)$$
 
@@ -1202,11 +1200,51 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
       ![Precision](https://github.com/ensiklopedical/system-recommendation/assets/115972304/efd048df-2997-4808-addc-da64f4d34469)
       
 
-    - Cara Kerja
+    - **Cara Kerja**
 
       Formula tersebut mengukur presisi dalam konteks sistem rekomendasi. Presisi dihitung dengan membagi jumlah rekomendasi yang relevan dengan jumlah total item yang direkomendasikan. Jadi, jika sebuah sistem merekomendasikan 10 film dan hanya 6 yang relevan atau disukai oleh pengguna, maka presisi sistem tersebut adalah 0.6 atau 60%. Ini menunjukkan seberapa akurat sistem dalam memberikan rekomendasi yang sesuai dengan kebutuhan atau selera pengguna.
       
   - Hasil `Precision` dari model `Content-Based Learning`
+    - Fungsi dari `calculate_precision` digunakan untuk perhitungan hasil
+ 
+      ```python
+      # Calculate precision based on title and genre
+      def calculate_precision(title, genre):
+          title_genre_movies = movie_df[(movie_df['title'] == title) & (movie_df['genre'] == genre)]
+          recommended_movies = movie_recommendations(title)
+          relevant_movies = recommended_movies[(recommended_movies['genre'] == genre)]
+          precision = len(relevant_movies['genre'] == genre) / len(recommended_movies['genre'] == genre)
+
+          return precision
+      ```
+ 
+      Function utama yang digunakan untuk menghitung skor `Precision` dari model Content-Based Filtering telah berhasil dibuat.
+      
+    - Perhitungan Presisi dan Hasilnya untuk setiap genre
+   
+      ```python
+      precision_results = []
+
+      for index, row in genre_movies_df.iterrows():
+          genre = row['genre']
+          title = row['title']
+          precision = calculate_precision(title, genre)
+          precision_results.append((precision, genre))  # Append precision and genre as a tuple
+      
+      for result in precision_results:
+          print(f"Precision: {result[0]}, Genre: {result[1]}")
+
+      ```
+
+      Output-nya:
+
+      ```python
+
+      ```
+
+      Berdasarkan hasil diatas, model memiliki skor presisi sebesar `1.0` atau `100%` untuk memberikan rekomendasi berdasarkan `genre`.
+
+      **Model memiliki performa yang sangat baik dalam memberikan rekomendasi secara Content-Based Filtering.**
 
     
 - `Colaborative Filtering` : `Root Mean Squared Error`
@@ -1216,16 +1254,29 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
 
     Berikut ini adalah formula dan cara kerja dari `Root Mean Squared Error` :
 
-    - Formula
+    - **Formula**
    
       $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
    
-    - Cara Kerja
+    - **Cara Kerja**
       
       RMSE menghitung akar kuadrat dari rata-rata perbedaan kuadrat antara nilai yang diprediksi oleh model dan nilai sebenarnya. Proses kerjanya melibatkan beberapa langkah. Pertama, untuk setiap titik data, kita menghitung selisih antara prediksi model dan nilai aktual. Selisih ini kemudian dikuadratkan untuk menghilangkan nilai negatif dan memberikan bobot lebih pada kesalahan yang lebih besar. Setelah itu, kita menghitung rata-rata dari nilai-nilai kuadrat tersebut. Terakhir, kita mengambil akar kuadrat dari rata-rata ini untuk mendapatkan RMSE.
     
-  - hasil nya
+  - Hasil `Root Mean Squared Error` dari model `Collaborative Learning`
+ 
+    - Plot History `Root Mean Squared Error`
 
+      gambar
+
+      Berdasarkan plot tersebut, proses training model berhenti pada epoch ke 13 (epochs 1 dimulai dari nomor 0 pada plot) karena `callbacks` yang berisi `early stopper`. `early stopper` menghentikan proses training karena model tidak menunjukkan penurunan pada `root_mean_squared_error` selama [] epochs.
+
+      Kemudian, model pada epochs ke [] yang dipertahankan karena pada epochs tersebut model memiliki performa yang terbaik. Berikut adalah hasil dari metriks pada epocs tersebut:
+      - `loss` : ``
+      - `root_mean_squared_error` : ``
+      - `val_loss` : ``
+      - `val_root_mean_squared_error`
+
+      
 
 ## Referensi
 
