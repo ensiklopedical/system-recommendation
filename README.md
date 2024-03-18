@@ -1211,7 +1211,7 @@ Berikut ini adalah penjelasan mengenai setiap metrik beserta hasil perhitungan m
     
 - `Colaborative Filtering` : `Root Mean Squared Error`
   - `Root Mean Squared Error`
-  - 
+    
     Root Mean Square Error (RMSE) adalah metrik yang sering digunakan dalam machine learning untuk mengukur seberapa baik sebuah model prediktif dapat memperkirakan nilai yang sebenarnya. RMSE merupakan akar kuadrat dari rata-rata perbedaan kuadrat antara nilai yang diprediksi oleh model dan nilai yang sebenarnya (nilai aktual).
 
     Berikut ini adalah formula dan cara kerja dari `Root Mean Squared Error` :
